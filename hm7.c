@@ -4,11 +4,8 @@
 
 /* Prompts the user for a float, loops until a float is entered. */
 void user_input(float *fp) {
-
     printf("Enter a float: ");
-    
-    while( scanf("%f", fp) != 1 ) { // Check input
-        
+    while( scanf("%f", fp) != 1 ) {
         printf("That is not a float!\nEnter a float: ");
         scanf("%s*");
     }
@@ -24,7 +21,6 @@ void print_as_read(float const *fp) {
 void print_as_binary(int number) {
     printf("Your float in 32 bits: ");
     for(int i = 0; i < 32 ; i++) {
-
         printf("%d", ((number & SHIFT_32) >> 31) ); // shift the most significant digit to the right 
         number = number << 1; // shift to the next significant digit 
    }
@@ -68,19 +64,15 @@ int get_sign(unsigned int number) {
 int get_exp( unsigned int number) {
     number = number << 1; // shift away the sign.
     number = number >> 24; // shift to the right to get the actual number. 
-
     int actual_exp = number - OFFSET; //subtract the offset.
-
     return actual_exp;
 }
 
 /* Creates and returns the fraction part. */
 float create_fraction(unsigned int number) {
-
     printf("Creating the fraction: \n");
     float fraction = 1;
     printf("fraction = %f  (the implicit 1) \n", fraction);
-
     number = number << 9; //shift way the sign and the exponent.
     float frac_part = 0.5; //start the fraction.
 
@@ -94,17 +86,13 @@ float create_fraction(unsigned int number) {
         }
         number = number << 1;
         frac_part /= 2;
-
-
     }
     printf("\n");
-
     return fraction;
 }
 
 /* Applies the exponent to the fraction. */
 float apply_exponent(float fraction, int exp, int sign) {
-
     printf("Applying the exponent:\n");
     printf("unbiased exponent = %d\n", exp);
 
@@ -135,7 +123,6 @@ float create_number(unsigned int number, int exp, int sign) {
 
 /* Starting point for the program. */
 int main(void) {
-
     unsigned int number;
     float *fp = (float*) &number;
     user_input(fp);
@@ -149,6 +136,5 @@ int main(void) {
     printf("\n");
     float rec_number = create_number(number, exp, sign);
     printf("\nFinal Answer: %f\n", rec_number);
-
     return 0;
 }
